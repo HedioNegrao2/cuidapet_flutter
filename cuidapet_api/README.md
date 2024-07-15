@@ -47,3 +47,16 @@ You should see the logging printed in the first terminal:
 2021-05-06T15:47:04.620417  0:00:00.000158 GET     [200] /
 2021-05-06T15:47:08.392928  0:00:00.001216 GET     [200] /echo/I_love_Dart
 ```
+# PACKAGES
+
+## dotenv: ^3.0.0 
+* Responsavem pro acessar as configurações e variaves de ambente.
+## mysql1: ^0.20.0
+* Comunicação com o bando de dado MySQL
+## get_it: ^7.7.0
+* sevice location. 
+## injectable: ^1.1.2
+* Gerenciador de dependencia,
+
+## logger: ^1.0.0
+* Gerador de logs
