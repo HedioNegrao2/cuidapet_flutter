@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:cuidapet_api/application/config/application_config.dart';
+import 'package:cuidapet_api/application/middlewares/cors/cors_middleware.dart';
+import 'package:cuidapet_api/application/middlewares/defalutContentType/defalt_content_type.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -19,8 +21,11 @@ void main(List<String> args) async {
   await appConfig.loadConfigApplicaton(router);
 
   // Configure a pipeline that logs requests.
-  final handler =
-      Pipeline().addMiddleware(logRequests()).addHandler(router);
+  final handler = const Pipeline()
+    .addMiddleware(CorsMiddleware().handler)
+    .addMiddleware(DefaltContentType().handler)
+    .addMiddleware(logRequests())
+    .addHandler(router);
 
   // For running in containers, we respect the PORT environment variable.
   final port = int.parse(Platform.environment['PORT'] ?? '8080');

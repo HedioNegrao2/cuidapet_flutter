@@ -60,3 +60,6 @@ You should see the logging printed in the first terminal:
 
 ## logger: ^1.0.0
 * Gerador de logs
+
+## jaguar_jwt: ^3.0.0
+* JWT
