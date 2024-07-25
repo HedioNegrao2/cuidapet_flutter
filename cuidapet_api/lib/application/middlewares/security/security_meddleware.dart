@@ -9,7 +9,9 @@ import 'package:shelf/src/response.dart';
 
 class SecurityMeddleware extends Middlewares {
   final ILogger log;
-  final skpUrl = <SecuritySkipUrl>[SecuritySkipUrl(url: '/auth/register', method: 'POST'),
+  final skpUrl = <SecuritySkipUrl>[
+    SecuritySkipUrl(url: '/auth/register', method: 'POST'),
+    SecuritySkipUrl(url: '/auth/', method: 'POST')
 
   ];
 

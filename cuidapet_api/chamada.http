@@ -6,3 +6,14 @@ Content-Type: application/json
   "email": "meuemail@gmail.com"
  
 }
+
+###
+POST  http://127.0.0.1:8080/auth/
+Content-Type: application/json
+
+{
+  "password": "123456",
+  "login": "meuemail@gmail.com",
+  "social_login": false ,
+  "supplier_user": false
+}

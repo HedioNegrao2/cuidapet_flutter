@@ -21,7 +21,7 @@ class User {
     this.refreshToken,
     this.socialKey,
     this.imageAvatar,
-    required this.supplierId,
+    this.supplierId,
   });
 
   User copyWith({

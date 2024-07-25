@@ -3,4 +3,5 @@ import 'package:cuidapet_api/modules/user/view_modules/user_save_imput_model.dar
 
 abstract class IUserService {
    Future<User> createUser(UserSaveImputModel user);
+     Future<User> loginWithEmailPassword(String email, String password , bool supplierUser);
 }

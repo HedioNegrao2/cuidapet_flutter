@@ -1,5 +1,6 @@
 import 'package:cuidapet_api/entities/user.dart';
 import 'package:cuidapet_api/modules/user/data/i_user_repository.dart';
+import 'package:cuidapet_api/modules/user/data/user_repository.dart';
 import 'package:cuidapet_api/modules/user/service/i_user_service.dart';
 import 'package:cuidapet_api/modules/user/view_modules/user_save_imput_model.dart';
 import 'package:injectable/injectable.dart';
@@ -22,4 +23,9 @@ class UserService implements IUserService {
 
     return userRepository.createUser(userEntity);
   }
+
+  @override
+  Future<User> loginWithEmailPassword(
+          String email, String password, bool supplierUser) =>
+      userRepository.loginWithEmailPassword(email, password, supplierUser);
 }
