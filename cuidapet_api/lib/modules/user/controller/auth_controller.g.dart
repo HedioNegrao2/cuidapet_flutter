@@ -18,5 +18,10 @@ Router _$AuthControllerRouter(AuthController service) {
     r'/register',
     service.saveUser,
   );
+  router.add(
+    'PATCH',
+    r'/confirm',
+    service.confirmLogin,
+  );
   return router;
 }

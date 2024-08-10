@@ -6,8 +6,9 @@ abstract class RequestMapping {
 
  RequestMapping.empty() : data = {};
 
- RequestMapping(String dataRequest) : this.data = jsonDecode(dataRequest){
+ RequestMapping(String dataRequest) : data = jsonDecode(dataRequest){
   map();
  }
+
  void map();
 }

@@ -7,13 +7,43 @@ Content-Type: application/json
  
 }
 
-###
+### Login com usuario e senha
+POST  http://127.0.0.1:8080/auth/
+Content-Type: application/json
+
+
+{
+  "login": "meuemail@gmail.com",
+  "social_login": true ,
+  "avatar": "test",
+  "supplier_user": false,
+  "social_key": "123456",    
+  "social_type": "FACEBOOK",
+  "password": ""
+  }
+
+### Login com facebook
 POST  http://127.0.0.1:8080/auth/
 Content-Type: application/json
 
 {
-  "password": "123456",
   "login": "meuemail@gmail.com",
-  "social_login": false ,
-  "supplier_user": false
-}
+  "social_login": true ,
+  "avatar": "test",
+  "supplier_user": false,
+  "social_key": "123456",    
+  "social_type": "FACEBOOK",
+  "password": ""
+  }
+
+
+### Confirm Login
+PATCH   http://127.0.0.1:8080/auth/confirm
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjMxNjQ3OTksImlhdCI6MTcyMzA3ODM5OSwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjMwNzgzOTksInN1YiI6IjI1Iiwic3VwcGxpZXIiOm51bGx9.j8R7R8rgj7htBIApg8AX2nRZ7_g11lGDiIR__dTGvOw
+
+
+{
+  "android_token": "123usjdflçal",
+  "ios_token": ""
+  }

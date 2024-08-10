@@ -37,8 +37,10 @@ _i1.GetIt $initGetIt(
         connection: get<_i3.IDatabaseConnection>(),
         log: get<_i8.ILogger>(),
       ));
-  gh.lazySingleton<_i9.IUserService>(
-      () => _i10.UserService(userRepository: get<_i6.IUserRepository>()));
+  gh.lazySingleton<_i9.IUserService>(() => _i10.UserService(
+        userRepository: get<_i6.IUserRepository>(),
+        log: get<_i8.ILogger>(),
+      ));
   gh.factory<_i11.AuthController>(() => _i11.AuthController(
         userService: get<_i9.IUserService>(),
         log: get<_i8.ILogger>(),

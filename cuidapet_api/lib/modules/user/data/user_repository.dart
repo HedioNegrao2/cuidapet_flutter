@@ -42,7 +42,7 @@ class UserRepository implements IUserRepository {
       return user.copyWith(id: userId, password: null);
     } on MySqlException catch (e, s) {
       if (e.message.contains('usuario.email_UNIQUE')) {
-        log.error('Erro ao criar usuario', e, s);
+        log.error('Usuario já cadastrado', e, s);
         throw UserExistsException();
       }
       log.error('Erro ao criar usuario', e, s);
@@ -78,24 +78,102 @@ class UserRepository implements IUserRepository {
 
       if (result.isEmpty) {
         log.error('Usuário ou senha invalido!!!');
-        throw UserNotfoundException(
-            message: 'Usuário ou senha invalido!!!');
+        throw UserNotfoundException(message: 'Usuário ou senha invalido!!!');
       } else {
         final userSqlData = result.first;
         return User(
           id: userSqlData['id'] as int,
-          email: userSqlData['email'],          
-          registerType: userSqlData['tipo_cadastro'],
+          email: userSqlData['email'],
+          registerType: userSqlData['tipo_cadastro'],          
+          iosToken: (userSqlData['ios_token'] as Blob?)?.toString(),
+          androidToken: (userSqlData['android_token'] as Blob?)?.toString(),          
+          refreshToken: (userSqlData['refresh_token'] as Blob?)?.toString(),
+          imageAvatar: (userSqlData['img_avatar'] as Blob?)?.toString(),
           supplierId: userSqlData['fornecedor_id'],
-          socialKey: userSqlData['social_id'],
-          iosToken: (userSqlData['ios_token'] as Blob?)?.toString(), 
-          androidToken: (userSqlData['android_token'] as Blob?)?.toString(), 
-          imageAvatar: (userSqlData['android_token'] as Blob?)?.toString(), 
+          socialKey: (userSqlData['social_id'] as Blob?)?.toString(),
         );
       }
     } on MySqlException catch (e, s) {
-      log.error('Erro ao buscar usuario', e, s);
+      log.error('Erro ao realizar login', e, s);
       throw DatabaseException(message: e.message);
+    } finally {
+      await conn?.close();
+    }
+  }
+
+  @override
+  Future<User> loginByEmailSocialKey(
+      String email, String socialKey, String socialType) async {
+    MySqlConnection? conn;
+
+    try {
+      conn = await connection.openConnection();
+      final result =
+          await conn.query('Select * from usuario where email = ?', [email]);
+
+      if (result.isEmpty) {
+        throw UserNotfoundException(message: 'Usuário não encontrado');
+      } else {
+        final userSqlData = result.first;
+
+        if (userSqlData['social_id'] == null ||
+            userSqlData['social_id'] == socialKey) {
+          await conn
+              .query('''Update usuario set social_id = ?, tipo_cadastro = ? 
+                       where id = ?''', [
+            socialKey,
+            socialType,
+            userSqlData['id'],
+          ]);
+        }
+
+        return User(
+          id: userSqlData['id'] as int,
+          email: userSqlData['email'],
+          registerType: userSqlData['tipo_cadastro'],
+          supplierId: userSqlData['fornecedor_id'],
+          socialKey: (userSqlData['social_id'] as Blob?)?.toString(),
+          iosToken: (userSqlData['ios_token'] as Blob?)?.toString(),
+          androidToken: (userSqlData['android_token'] as Blob?)?.toString(),
+          imageAvatar: (userSqlData['img_avatar'] as Blob?)?.toString(),
+          refreshToken: (userSqlData['refresh_token'] as Blob?)?.toString(),
+        );
+      }
+    } finally {
+      await conn?.close();
+    }
+  }
+
+  @override
+  Future<void> updateUserDeviceTokenAndrefreshToken(User user) async{
+    MySqlConnection? conn;
+    try {
+      conn = await connection.openConnection();
+      final setParams = {};
+      if(user.iosToken != null){
+        setParams.putIfAbsent('ios_token', () => user.iosToken);
+      } else {
+        setParams.putIfAbsent('android_token', () => user.androidToken);
+      }
+
+      final query = '''
+        UPDATE usuario
+        SET ${setParams.keys.elementAt(0)} = ?,
+        refresh_token = ?
+        WHERE id = ?
+      ''';
+
+      await conn.query(query, [
+        setParams.values.elementAt(0),
+        user.refreshToken!,
+        user.id!
+      ]);
+
+    } on MySqlException catch (e, s) {
+     log.error('Erro ao confirmar token do usuario', e,s);   
+
+     throw DatabaseException();
+      
     } finally {
       await conn?.close();
     }

@@ -7,6 +7,7 @@ import 'package:cuidapet_api/application/logger/i_logger.dart';
 import 'package:cuidapet_api/entities/user.dart';
 import 'package:cuidapet_api/modules/user/service/i_user_service.dart';
 import 'package:cuidapet_api/modules/user/view_modules/login_view_model.dart';
+import 'package:cuidapet_api/modules/user/view_modules/user_confirmImputModel.dart';
 import 'package:cuidapet_api/modules/user/view_modules/user_save_imput_model.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shelf/shelf.dart';
@@ -32,15 +33,19 @@ class AuthController {
       User user;
 
       if (!loginViewModel.socialLogin) {
-        user = await userService.loginWithEmailPassword(
-            loginViewModel.login, loginViewModel.password, loginViewModel.supplierUser);
+        user = await userService.loginWithEmailPassword(loginViewModel.login,
+            loginViewModel.password, loginViewModel.supplierUser);
       } else {
-        user = User();
+        user = await userService.loginWithSocial(
+          loginViewModel.login,
+          loginViewModel.avatar,
+          loginViewModel.socialKey,
+          loginViewModel.socialType,
+        );
       }
 
-      return Response.ok(jsonEncode({
-        'acces_token': JwtHelper.genereteJWT(user.id!, user.supplierId),
-      }));
+      return Response.ok(jsonEncode(
+          {'acces_token': JwtHelper.genereteJWT(user.id!, user.supplierId)}));
     } on UserNotfoundException {
       return Response.forbidden(
           jsonEncode({'message': 'Usuário não encontrado'}));
@@ -63,6 +68,22 @@ class AuthController {
       log.error('Erro ao cadastrar usuário', e);
       return Response.internalServerError();
     }
+  }
+
+  @Route('PATCH', '/confirm')
+  Future<Response> confirmLogin(Request request) async {
+    final user = int.parse(request.headers['user']!);
+    final supplier = int.tryParse(request.headers['supplier'] ?? '');
+    final token =
+        JwtHelper.genereteJWT(user, supplier).replaceAll('Bearer ', '');
+
+    final inputModel = UserConfirmImputModel(
+        userId: user, acessToken: token, data: await request.readAsString());
+
+    final refreshTokem = await userService.confirmLogin(inputModel);
+
+    return Response.ok(jsonEncode(
+        {'acces_token': 'Bearer $token', 'refresh_token': refreshTokem}));
   }
 
   Router get router => _$AuthControllerRouter(this);
