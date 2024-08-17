@@ -40,10 +40,45 @@ Content-Type: application/json
 ### Confirm Login
 PATCH   http://127.0.0.1:8080/auth/confirm
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjMxNjQ3OTksImlhdCI6MTcyMzA3ODM5OSwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjMwNzgzOTksInN1YiI6IjI1Iiwic3VwcGxpZXIiOm51bGx9.j8R7R8rgj7htBIApg8AX2nRZ7_g11lGDiIR__dTGvOw
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjM1MDg2MzYsImlhdCI6MTcyMzUwODYxNiwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjM1MDg2MTYsInN1YiI6IjI1Iiwic3VwcGxpZXIiOm51bGx9.HBEt9gb-Vd5WTlcnfEr8IRgdiiCHMm0gSmQhdT2TOpk
 
 {
   "android_token": "123usjdflçal",
   "ios_token": ""
   }
+
+### Refresh Token
+PUT http://127.0.0.1:8080/auth/refresh
+Content-Type: application/json
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjM1MDg2NTcsImlhdCI6MTcyMzUwODYzNywiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjM1MDg2MzcsInN1YiI6IjI1Iiwic3VwcGxpZXIiOm51bGx9.DWgC3GX9mttOk-2DwPY6yZUqoto0Y4mQbD2C4pHY_ew
+
+{
+  "refresh_token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUyMzY2MzcsImlhdCI6MTcyMzUwODYzNywiaXNzIjoiZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmxlSEFpT2pFM01qTTFNRGcyTlRjc0ltbGhkQ0k2TVRjeU16VXdPRFl6Tnl3aWFYTnpJam9pWTNWcFpHRndaWFFpTENKdVltWWlPakUzTWpNMU1EZzJNemNzSW5OMVlpSTZJakkxSWl3aWMzVndjR3hwWlhJaU9tNTFiR3g5LkRXZ0MzR1g5bXR0T2stMkR3UFk2eVpVcW90bzBZNG1RYkQyQzRwSFlfZXciLCJzdWIiOiJyZWZyZXNoVG9rZW4ifQ.h41CdcmHSNVB0VjVTucnLH1o0YLN5jHj5d7ZxkKw5wY"
+}
+
+### Pegar usuaro por token
+
+GET http://127.0.0.1:8080/user/
+Content-Type: application/json
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjM5NDM4NTEsImlhdCI6MTcyMzg1NzQ1MSwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjM4NTc0NTEsInN1YiI6IjI1Iiwic3VwcGxpZXIiOm51bGx9.Xzzfl2DWgpulOou_tJSy3ULaNz7tKNgTaQFZyEiCOv8
+
+### Atualizar avatar
+
+PUT http://127.0.0.1:8080/user/avatar
+Content-Type: application/json
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjM5ODY4NzUsImlhdCI6MTcyMzkwMDQ3NSwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjM5MDA0NzUsInN1YiI6IjI1Iiwic3VwcGxpZXIiOm51bGx9.jEdQ-nSMnwdFrBqf4QjVS_i_u3hOJF44BlMaaxlEe7k
+
+{
+  "url_avatar": "test"
+}
+
+### Atualizar avattokenar
+
+PUT http://127.0.0.1:8080/user/device
+Content-Type: application/json
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjQwMTg3MjMsImlhdCI6MTcyMzkzMjMyMywiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjM5MzIzMjMsInN1YiI6IjI1Iiwic3VwcGxpZXIiOm51bGx9.hTOmo7ew-tnZlgSFModt0J979CJSj69I2VGYhScL5Ow
+
+{
+  "token": "IOS_UPDATE_TOKEN",
+  "platform": "IOS"
+}

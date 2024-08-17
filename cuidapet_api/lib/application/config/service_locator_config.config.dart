@@ -8,7 +8,8 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../../modules/user/controller/auth_controller.dart' as _i11;
+import '../../modules/user/controller/auth_controller.dart' as _i12;
+import '../../modules/user/controller/user_controller.dart' as _i11;
 import '../../modules/user/data/i_user_repository.dart' as _i6;
 import '../../modules/user/data/user_repository.dart' as _i7;
 import '../../modules/user/service/i_user_service.dart' as _i9;
@@ -41,7 +42,11 @@ _i1.GetIt $initGetIt(
         userRepository: get<_i6.IUserRepository>(),
         log: get<_i8.ILogger>(),
       ));
-  gh.factory<_i11.AuthController>(() => _i11.AuthController(
+  gh.factory<_i11.UserController>(() => _i11.UserController(
+        userService: get<_i9.IUserService>(),
+        log: get<_i8.ILogger>(),
+      ));
+  gh.factory<_i12.AuthController>(() => _i12.AuthController(
         userService: get<_i9.IUserService>(),
         log: get<_i8.ILogger>(),
       ));

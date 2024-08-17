@@ -8,6 +8,7 @@ import 'package:cuidapet_api/entities/user.dart';
 import 'package:cuidapet_api/modules/user/service/i_user_service.dart';
 import 'package:cuidapet_api/modules/user/view_modules/login_view_model.dart';
 import 'package:cuidapet_api/modules/user/view_modules/user_confirmImputModel.dart';
+import 'package:cuidapet_api/modules/user/view_modules/user_refresh_token_input_model.dart';
 import 'package:cuidapet_api/modules/user/view_modules/user_save_imput_model.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shelf/shelf.dart';
@@ -84,6 +85,32 @@ class AuthController {
 
     return Response.ok(jsonEncode(
         {'acces_token': 'Bearer $token', 'refresh_token': refreshTokem}));
+  }
+
+  @Route.put('/refresh')
+  Future<Response> refreshToken(Request request) async {
+    try {
+      final user = int.parse(request.headers['user']!);
+      final supplier = int.tryParse(request.headers['supplier'] ?? '');
+      final accessToken = request.headers['access_token']!;
+      final model = UserRefreshTokenInputModel(
+        user: user,
+        supplierId: supplier,
+        accessToken: accessToken,
+        dataRequest: await request.readAsString(),
+      );
+
+      final useRefreshToken = await userService.refreshToken(model);
+
+      return  Response.ok(jsonEncode({
+        'access_token': useRefreshToken.accessToken,
+        'refresh_token': useRefreshToken.refreshToken,
+      }));
+     } catch (e) {
+      log.error('Erro ao atualizar token', e);
+      return Response.internalServerError(
+          body: jsonEncode({'message': 'Erro ao atualizar token'}));
+    }
   }
 
   Router get router => _$AuthControllerRouter(this);
