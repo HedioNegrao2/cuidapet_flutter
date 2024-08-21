@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:cuidapet_api/application/exceptions/user_notfound_exception.dart';
 import 'package:cuidapet_api/application/logger/i_logger.dart';
-import 'package:cuidapet_api/entities/user.dart';
 import 'package:cuidapet_api/modules/user/service/i_user_service.dart';
 import 'package:cuidapet_api/modules/user/view_modules/update_url_avatar_view_model.dart';
 import 'package:cuidapet_api/modules/user/view_modules/user_update_token_device_input_model.dart';

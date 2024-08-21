@@ -82,3 +82,15 @@ Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjQwMTg3
   "token": "IOS_UPDATE_TOKEN",
   "platform": "IOS"
 }
+
+### Categprias
+
+GET http://127.0.0.1:8080/categories/
+Content-Type: application/json
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjM5NDM4NTEsImlhdCI6MTcyMzg1NzQ1MSwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjM4NTc0NTEsInN1YiI6IjI1Iiwic3VwcGxpZXIiOm51bGx9.Xzzfl2DWgpulOou_tJSy3ULaNz7tKNgTaQFZyEiCOv8
+
+### Categprias
+
+GET http://127.0.0.1:8080/suppliers/
+Content-Type: application/json
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjM5NDM4NTEsImlhdCI6MTcyMzg1NzQ1MSwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjM4NTc0NTEsInN1YiI6IjI1Iiwic3VwcGxpZXIiOm51bGx9.Xzzfl2DWgpulOou_tJSy3ULaNz7tKNgTaQFZyEiCOv8

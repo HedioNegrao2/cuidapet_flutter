@@ -14,8 +14,8 @@ class UserRouter implements IRouter {
 
    
     
-    router.mount('/auth/', authController.router);
-    router.mount('/user/', userController.router);
+    router.mount('/auth/', authController.router.call);
+    router.mount('/user/', userController.router.call);
 
   }
   

@@ -11,7 +11,6 @@ import 'package:cuidapet_api/modules/user/view_modules/user_confirmImputModel.da
 import 'package:cuidapet_api/modules/user/view_modules/user_refresh_token_input_model.dart';
 import 'package:cuidapet_api/modules/user/view_modules/user_save_imput_model.dart';
 import 'package:cuidapet_api/modules/user/view_modules/user_update_token_device_input_model.dart';
-import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:jaguar_jwt/jaguar_jwt.dart';
 

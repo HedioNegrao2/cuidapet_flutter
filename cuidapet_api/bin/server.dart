@@ -30,7 +30,7 @@ void main(List<String> args) async {
     .addMiddleware(DefaltContentType().handler)
     .addMiddleware(SecurityMeddleware(getIt.get()).handler)
     .addMiddleware(logRequests())
-    .addHandler(router);
+    .addHandler(router.call);
 
   // For running in containers, we respect the PORT environment variable.
   final port = int.parse(Platform.environment['PORT'] ?? '8080');
