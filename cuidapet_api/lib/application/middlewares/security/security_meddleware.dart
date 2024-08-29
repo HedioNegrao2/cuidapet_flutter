@@ -11,7 +11,9 @@ class SecurityMeddleware extends Middlewares {
   final ILogger log;
   final skpUrl = <SecuritySkipUrl>[
     SecuritySkipUrl(url: '/auth/register', method: 'POST'),
-    SecuritySkipUrl(url: '/auth/', method: 'POST')
+    SecuritySkipUrl(url: '/auth/', method: 'POST'),
+    SecuritySkipUrl(url: 'suppliers/user', method: 'GET'),
+     SecuritySkipUrl(url: 'suppliers/user', method: 'POST'),
 
   ];
 
@@ -56,7 +58,7 @@ class SecurityMeddleware extends Middlewares {
       final securityHeaders = {
         'user': userId,
         'access_token': authorizationTonken,
-        'supplier': supplierId
+        'supplier': supplierId != null ? '$supplierId' : null
       };
       return innerHandler(request.change(headers: securityHeaders));
     } on JwtException catch (e) {

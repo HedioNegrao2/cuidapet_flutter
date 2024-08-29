@@ -5,7 +5,9 @@ class UserSaveImputModel extends RequestMapping {
   late String password;
   int? supplierId;
 
-  UserSaveImputModel(String dataRequest) : super(dataRequest);
+  UserSaveImputModel({required this.email, required this.password,  this.supplierId}) : super.empty();
+
+  UserSaveImputModel.RequestMapping(String dataRequest) : super(dataRequest);
 
   @override
   void map() {

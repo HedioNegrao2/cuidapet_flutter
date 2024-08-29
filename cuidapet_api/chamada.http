@@ -89,8 +89,68 @@ GET http://127.0.0.1:8080/categories/
 Content-Type: application/json
 Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjM5NDM4NTEsImlhdCI6MTcyMzg1NzQ1MSwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjM4NTc0NTEsInN1YiI6IjI1Iiwic3VwcGxpZXIiOm51bGx9.Xzzfl2DWgpulOou_tJSy3ULaNz7tKNgTaQFZyEiCOv8
 
-### Categprias
+### Forncedores pro geo localizacao
 
-GET http://127.0.0.1:8080/suppliers/
+GET http://127.0.0.1:8080/suppliers/?lat=-23.561472512749365&&lng= -46.65636555396984
 Content-Type: application/json
 Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjM5NDM4NTEsImlhdCI6MTcyMzg1NzQ1MSwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjM4NTc0NTEsInN1YiI6IjI1Iiwic3VwcGxpZXIiOm51bGx9.Xzzfl2DWgpulOou_tJSy3ULaNz7tKNgTaQFZyEiCOv8
+
+### Forncedores pro codigo
+
+GET http://127.0.0.1:8080/suppliers/22
+Content-Type: application/json
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjM5NDM4NTEsImlhdCI6MTcyMzg1NzQ1MSwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjM4NTc0NTEsInN1YiI6IjI1Iiwic3VwcGxpZXIiOm51bGx9.Xzzfl2DWgpulOou_tJSy3ULaNz7tKNgTaQFZyEiCOv8
+
+
+### Serviço Forncedor 
+GET http://127.0.0.1:8080/suppliers/2/services
+Content-Type: application/json
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjM5NDM4NTEsImlhdCI6MTcyMzg1NzQ1MSwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjM4NTc0NTEsInN1YiI6IjI1Iiwic3VwcGxpZXIiOm51bGx9.Xzzfl2DWgpulOou_tJSy3ULaNz7tKNgTaQFZyEiCOv8
+
+### Checar se o email do fornecedor ja existe 
+GET http://127.0.0.1:8080/suppliers/user?email=clinicacentralabc@gmail.com
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjM5NDM4NTEsImlhdCI6MTcyMzg1NzQ1MSwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjM4NTc0NTEsInN1YiI6IjI1Iiwic3VwcGxpZXIiOm51bGx9.Xzzfl2DWgpulOou_tJSy3ULaNz7tKNgTaQFZyEiCOv8
+
+### Checar se o email do fornecedor ja existe 
+POST  http://127.0.0.1:8080/suppliers/user
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjM5NDM4NTEsImlhdCI6MTcyMzg1NzQ1MSwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjM4NTc0NTEsInN1YiI6IjI1Iiwic3VwcGxpZXIiOm51bGx9.Xzzfl2DWgpulOou_tJSy3ULaNz7tKNgTaQFZyEiCOv8
+
+{
+  "supplierName": "novo fornecedor",
+  "email": "vaidacerto@gmail.com.br",
+  "password": "123456",
+  "category_id": 3
+
+}
+
+### Atualizar dados do fornecedor
+PUT  http://127.0.0.1:8080/suppliers/
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjQ5Nzg3MTksImlhdCI6MTcyNDg5MjMxOSwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjQ4OTIzMTksInN1YiI6IjI5Iiwic3VwcGxpZXIiOjI1fQ.FI7WXU1NTzmroprRXi7uB3iR4TIF0xo8jRTyZhbi6QA
+
+{
+  "name": "novo fornecedor",
+  "email": "vaidacerto@gmail.com.br",
+  "password": "123456",
+  "category": 3,
+  "logo": "test",
+  "address": "rua teste",
+  "phone": "123456789",
+  "lat": -23.561472512749365,
+  "lng": -46.65636555396984
+
+}
+
+
+### Login com usuario e senha fornecedor
+POST  http://127.0.0.1:8080/auth/
+Content-Type: application/json
+
+{
+  "login": "vaidacerto@gmail.com.br",
+  "social_login": true ,
+  "avatar": "test",
+  "supplier_user": true,
+  "social_key": "123456",    
+  "social_type": "FACEBOOK",
+  "password": ""
+  }
