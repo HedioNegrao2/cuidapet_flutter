@@ -180,7 +180,7 @@ class SupplierRepository implements ISupplierRepository {
     MySqlConnection? conn;
     try {
       conn = await connection.openConnection();
-      final result = await conn.query('''update  fornecedor
+        await conn.query('''update  fornecedor
               set 
                 nome = ?, 
                 logo = ?, 

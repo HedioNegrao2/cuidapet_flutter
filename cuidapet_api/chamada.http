@@ -143,6 +143,7 @@ Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjQ5Nzg3
 
 ### Login com usuario e senha fornecedor
 POST  http://127.0.0.1:8080/auth/
+
 Content-Type: application/json
 
 {
@@ -154,3 +155,39 @@ Content-Type: application/json
   "social_type": "FACEBOOK",
   "password": ""
   }
+
+### Agendar
+POST  http://127.0.0.1:8080/schedules/
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjU0OTExNjIsImlhdCI6MTcyNTQwNDc2MiwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjU0MDQ3NjIsInN1YiI6IjI5Iiwic3VwcGxpZXIiOjI1fQ.7_cKwcdIf1ANkH-OhOwCowia-Jaccl1xrjxs-Js10ro
+Content-Type: application/json
+
+{
+ "schedule_date": "2021-06-15T10:00:00",
+  "supplier_id":20,
+  "services" : [52,53,54], 
+  "name": "novo fornecedor",
+  "pat_name": "bia"  
+
+}
+
+
+### Agendar
+put  http://127.0.0.1:8080/schedules/:id/staus/:staus
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjU0OTExNjIsImlhdCI6MTcyNTQwNDc2MiwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjU0MDQ3NjIsInN1YiI6IjI5Iiwic3VwcGxpZXIiOjI1fQ.7_cKwcdIf1ANkH-OhOwCowia-Jaccl1xrjxs-Js10ro
+
+
+### Pegar agendamentos
+GET  http://127.0.0.1:8080/schedules/
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjU0OTExNjIsImlhdCI6MTcyNTQwNDc2MiwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjU0MDQ3NjIsInN1YiI6IjI5Iiwic3VwcGxpZXIiOjI1fQ.7_cKwcdIf1ANkH-OhOwCowia-Jaccl1xrjxs-Js10ro
+Content-Type: application/json
+
+### Pegar agendamentos
+GET  http://127.0.0.1:8080/schedules/supplier
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjU0OTExNjIsImlhdCI6MTcyNTQwNDc2MiwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjU0MDQ3NjIsInN1YiI6IjI5Iiwic3VwcGxpZXIiOjI1fQ.7_cKwcdIf1ANkH-OhOwCowia-Jaccl1xrjxs-Js10ro
+Content-Type: application/json
+
+
+### Inciar chat
+POST  http://127.0.0.1:8080/chats/schedule/5/start-chat
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjU0OTExNjIsImlhdCI6MTcyNTQwNDc2MiwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjU0MDQ3NjIsInN1YiI6IjI5Iiwic3VwcGxpZXIiOjI1fQ.7_cKwcdIf1ANkH-OhOwCowia-Jaccl1xrjxs-Js10ro
+Content-Type: application/json
