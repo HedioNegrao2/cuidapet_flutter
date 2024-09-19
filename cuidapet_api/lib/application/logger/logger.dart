@@ -12,7 +12,7 @@ class Logger implements ILogger{
   void error(message, [error, StackTrace? stacktrace]) => _logger.e(message, error, stacktrace); 
 
   @override
-  void innfo(message, [error, StackTrace? stacktrace]) => _logger.i(message, error, stacktrace); 
+  void info(message, [error, StackTrace? stacktrace]) => _logger.i(message, error, stacktrace); 
 
   @override
   void warning(message, [error, StackTrace? stacktrace]) => _logger.w(message, error, stacktrace); 

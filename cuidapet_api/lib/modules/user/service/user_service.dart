@@ -42,7 +42,7 @@ class UserService implements IUserService {
 
   @override
   Future<User> loginWithSocial(
-      String email, String avatar, String socialKey, String socialType) async {
+      String email, String? avatar, String socialKey, String socialType) async {
     try {
       return await userRepository.loginByEmailSocialKey(
           email, socialKey, socialType);

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:cuidapet_api/application/exceptions/request_validation_exception.dart';
 import 'package:cuidapet_api/application/exceptions/user_exists_exception.dart';
 import 'package:cuidapet_api/application/exceptions/user_notfound_exception.dart';
 import 'package:cuidapet_api/application/helpers/jwt_helper.dart';
@@ -34,14 +35,16 @@ class AuthController {
       User user;
 
       if (!loginViewModel.socialLogin) {
+        loginViewModel.loginEmailValidate();
         user = await userService.loginWithEmailPassword(loginViewModel.login,
-            loginViewModel.password, loginViewModel.supplierUser);
+            loginViewModel.password!, loginViewModel.supplierUser);
       } else {
+        loginViewModel.loginSocialValidate();
         user = await userService.loginWithSocial(
           loginViewModel.login,
-          loginViewModel.avatar,
-          loginViewModel.socialKey,
-          loginViewModel.socialType,
+          loginViewModel.avatar!,
+          loginViewModel.socialKey!,
+          loginViewModel.socialType!,
         );
       }
 
@@ -50,6 +53,9 @@ class AuthController {
     } on UserNotfoundException {
       return Response.forbidden(
           jsonEncode({'message': 'Usuário não encontrado'}));
+    } on RequestValidationException catch (e, s) {
+      log.error('Erro ao realizar login', e, s);
+      return Response(400, body: jsonEncode(e.errors));
     } catch (e, s) {
       log.error('Erro ao realizar login', e, s);
       return Response.internalServerError(
@@ -60,7 +66,8 @@ class AuthController {
   @Route.post('/register')
   Future<Response> saveUser(Request request) async {
     try {
-      final userModel = UserSaveImputModel.RequestMapping(await request.readAsString());
+      final userModel =
+          UserSaveImputModel.RequestMapping(await request.readAsString());
       await userService.createUser(userModel);
       return Response.ok(jsonEncode({'message': 'Usuário criado com sucesso'}));
     } on UserExistsException {
@@ -73,18 +80,30 @@ class AuthController {
 
   @Route('PATCH', '/confirm')
   Future<Response> confirmLogin(Request request) async {
-    final user = int.parse(request.headers['user']!);
-    final supplier = int.tryParse(request.headers['supplier'] ?? '');
-    final token =
-        JwtHelper.genereteJWT(user, supplier).replaceAll('Bearer ', '');
+    try {
+      final user = int.parse(request.headers['user']!);
+      final supplier = int.tryParse(request.headers['supplier'] ?? '');
+      final token =
+          JwtHelper.genereteJWT(user, supplier).replaceAll('Bearer ', '');
 
-    final inputModel = UserConfirmImputModel(
-        userId: user, acessToken: token, data: await request.readAsString());
+      final inputModel = UserConfirmImputModel(
+          userId: user, acessToken: token, data: await request.readAsString());
 
-    final refreshTokem = await userService.confirmLogin(inputModel);
+      inputModel.validateRequest();
 
-    return Response.ok(jsonEncode(
-        {'acces_token': 'Bearer $token', 'refresh_token': refreshTokem}));
+      final refreshTokem = await userService.confirmLogin(inputModel);
+
+      return Response.ok(jsonEncode(
+          {'acces_token': 'Bearer $token', 'refresh_token': refreshTokem}));
+
+    } on RequestValidationException catch (e, s) {
+     log.error('Erro ao confirmar login', e, s);
+     return Response(400, body: jsonEncode(e.errors)); 
+    
+    } catch (e, s) {
+      log.error('Erro ao confirmar login', e, s);
+      return Response.internalServerError();
+    }
   }
 
   @Route.put('/refresh')
@@ -102,11 +121,11 @@ class AuthController {
 
       final useRefreshToken = await userService.refreshToken(model);
 
-      return  Response.ok(jsonEncode({
+      return Response.ok(jsonEncode({
         'access_token': useRefreshToken.accessToken,
         'refresh_token': useRefreshToken.refreshToken,
       }));
-     } catch (e) {
+    } catch (e) {
       log.error('Erro ao atualizar token', e);
       return Response.internalServerError(
           body: jsonEncode({'message': 'Erro ao atualizar token'}));
