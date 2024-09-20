@@ -1,0 +1,1 @@
+flutter create --project-name gradiente_text --platforms android --org br.com.hedionegrao ./cuidapet-mobile
