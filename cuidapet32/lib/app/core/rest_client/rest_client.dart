@@ -1,8 +1,8 @@
 import 'package:cuidapet32/app/core/rest_client/rest_client_response.dart';
 
-abstract interface class RestClient {
+abstract class RestClient {
   RestClient auth();
-  RestClient unath();
+  RestClient unauth();
 
   Future<RestClientResponse<T>> post<T>(
     String path, {
@@ -13,6 +13,13 @@ abstract interface class RestClient {
 
   Future<RestClientResponse<T>> get<T>(
     String path, {    
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
+  });
+
+  Future<RestClientResponse<T>> put<T>(
+    String path, {
+    dynamic data,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
   });

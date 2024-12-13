@@ -49,7 +49,7 @@ class AuthController {
       }
 
       return Response.ok(jsonEncode(
-          {'acces_token': JwtHelper.genereteJWT(user.id!, user.supplierId)}));
+          {'access_token': JwtHelper.genereteJWT(user.id!, user.supplierId)}));
     } on UserNotfoundException {
       return Response.forbidden(
           jsonEncode({'message': 'Usuário não encontrado'}));
@@ -94,12 +94,10 @@ class AuthController {
       final refreshTokem = await userService.confirmLogin(inputModel);
 
       return Response.ok(jsonEncode(
-          {'acces_token': 'Bearer $token', 'refresh_token': refreshTokem}));
-
+          {'access_token': 'Bearer $token', 'refresh_token': refreshTokem}));
     } on RequestValidationException catch (e, s) {
-     log.error('Erro ao confirmar login', e, s);
-     return Response(400, body: jsonEncode(e.errors)); 
-    
+      log.error('Erro ao confirmar login', e, s);
+      return Response(400, body: jsonEncode(e.errors));
     } catch (e, s) {
       log.error('Erro ao confirmar login', e, s);
       return Response.internalServerError();

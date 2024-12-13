@@ -1,4 +1,6 @@
 import 'package:cuidapet32/app/modules/core/core_mudule.dart';
+import 'package:cuidapet32/app/repositories/social/social_repository.dart';
+import 'package:cuidapet32/app/repositories/social/social_repository_impl.dart';
 import 'package:cuidapet32/app/repositories/user/user_repository.dart';
 import 'package:cuidapet32/app/repositories/user/user_repository_impl.dart';
 import 'package:cuidapet32/app/services/user/user_service.dart';
@@ -19,13 +21,14 @@ class AuthModule extends Module {
    void exportedBinds(i) {  
     i.addSingleton<UserRepository>(UserRepositoryImpl.new);
     i.addSingleton<UserService>(UserServiceImpl.new);
+    i.addLazySingleton<SocialRepository>(() => SocialRepositoryImpl());
   }
 
   
   @override
   void routes(r) {
     r.child('/', child: (context) =>  AuthHomePage(authStore: Modular.get(),));
-    r.module('/login/', module: LoginModule());
+    r.module('login/', module: LoginModule());
     r.module('/register/', module: RegisterModule());
   }
 }

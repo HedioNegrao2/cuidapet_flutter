@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "br.com.hedionegrao.cuidapet32"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 34
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

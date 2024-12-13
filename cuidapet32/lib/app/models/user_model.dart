@@ -18,7 +18,7 @@ class UserModel {
     return {
       'email': email,
       'registerType': registerType,
-      'imgAvatar': imgAvatar,
+      'imageAvatar': imgAvatar,
     };
   }
 
@@ -26,7 +26,7 @@ class UserModel {
     return UserModel(
       email: map['email'] ?? '',
       registerType: map['registerType'] ?? '',
-      imgAvatar: map['imgAvatar'] ?? '',
+      imgAvatar: map['imageAvatar'] ?? '',
     );
   }
 
@@ -34,3 +34,5 @@ class UserModel {
 
   factory UserModel.fromJson(String source) => UserModel.fromMap(json.decode(source));
 }
+
+

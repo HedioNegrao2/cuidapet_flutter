@@ -1,8 +1,12 @@
 import 'package:cuidapet32/app/core/helpers/constants.dart';
 import 'package:cuidapet32/app/core/helpers/environments.dart';
+import 'package:cuidapet32/app/core/local_storage/local_storage.dart';
+import 'package:cuidapet32/app/core/logger/app_logger.dart';
+import 'package:cuidapet32/app/core/rest_client/dio/interceptors/auth_interceptor.dart';
 import 'package:cuidapet32/app/core/rest_client/rest_client.dart';
 import 'package:cuidapet32/app/core/rest_client/rest_client_exception.dart';
 import 'package:cuidapet32/app/core/rest_client/rest_client_response.dart';
+import 'package:cuidapet32/app/modules/core/auth/auth_store.dart';
 import 'package:dio/dio.dart';
 
 class DioRestClient implements RestClient {
@@ -11,30 +15,43 @@ class DioRestClient implements RestClient {
   final _defaultOptions = BaseOptions(
     baseUrl: Environments.param(Constants.ENV_BASE_URL_KEY) ?? '',
     connectTimeout: Duration(
-        microseconds: int.parse(
+        milliseconds: int.parse(
             Environments.param(Constants.ENV_REST_CLIENTE_CONNECT_TIMEOUT) ??
                 '0')),
     receiveTimeout: Duration(
-        microseconds: int.parse(
+        milliseconds: int.parse(
             Environments.param(Constants.ENV_REST_CLIENTE_RECEIVE_TIMEOUT) ??
                 '0')),
   );
 
-  DioRestClient(
+  DioRestClient({
+    required LocalStorage localStorage,
+    required AppLogger log,
+    required AuthStore authStore,
     BaseOptions? options,
-  ) {
+  }) {
     _dio = Dio(options ?? _defaultOptions);
+    _dio.interceptors.addAll([
+       AuthInterceptor(localStorage: localStorage, log: log, authStore: authStore),
+      LogInterceptor(
+        requestBody: true,
+        responseBody: true,
+        requestHeader: true,
+        responseHeader: true,
+      ),
+     
+    ]);
   }
 
   @override
   RestClient auth() {
-    _defaultOptions.extra['auth_required'] = true;
+    _defaultOptions.extra[Constants.REST_CLIENT_AUTH_REQUIRED_KEY] = true;
     return this;
   }
 
   @override
-  RestClient unath() {
-    _defaultOptions.extra['auth_required'] = false;
+  RestClient unauth() {
+    _defaultOptions.extra[Constants.REST_CLIENT_AUTH_REQUIRED_KEY] = false;
     return this;
   }
 
@@ -68,7 +85,7 @@ class DioRestClient implements RestClient {
         options: Options(headers: headers),
       );
 
-      return _dioResponseConvert<T>(response);
+      return _dioResponseConvert(response);
     } on DioException catch (e) {
       _trowRestClientException(e);
     }
@@ -87,7 +104,7 @@ class DioRestClient implements RestClient {
         options: Options(headers: headers),
       );
 
-      return _dioResponseConvert<T>(response);
+      return _dioResponseConvert(response);
     } on DioException catch (e) {
       _trowRestClientException(e);
     }
@@ -106,11 +123,31 @@ class DioRestClient implements RestClient {
         options: Options(headers: headers),
       );
 
-      return _dioResponseConvert<T>(response);
+      return _dioResponseConvert(response);
     } on DioException catch (e) {
       _trowRestClientException(e);
     }
   }
+
+@override
+  Future<RestClientResponse<T>> put<T>(String path,
+      {data,
+      Map<String, dynamic>? queryParameters,
+      Map<String, dynamic>? headers}) async {
+    try {
+      final response = await _dio.patch(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: Options(headers: headers),
+      );
+
+      return  _dioResponseConvert(response);
+    } on DioException catch (e) {
+      _trowRestClientException(e);
+    }
+  }
+
 
   @override
   Future<RestClientResponse<T>> request<T>(String path,
@@ -123,12 +160,10 @@ class DioRestClient implements RestClient {
         path,
         data: data,
         queryParameters: queryParameters,
-        options: Options(
-          headers: headers,
-          method: method),
+        options: Options(headers: headers, method: method),
       );
 
-      return _dioResponseConvert<T>(response);
+      return _dioResponseConvert(response);
     } on DioException catch (e) {
       _trowRestClientException(e);
     }

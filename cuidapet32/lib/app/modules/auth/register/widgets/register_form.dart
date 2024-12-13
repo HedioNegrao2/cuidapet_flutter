@@ -55,7 +55,7 @@ class _RegisterFormState extends State<_RegisterForm> {
           CuidapetDefaultButton(onPressed: () {
             final formValid = _formKey.currentState?.validate() ?? false;
             final controller = Modular.get<RegisterController>();
-            if(formValid){
+         if(formValid) {
               controller.register(email: _loginEC.text, password:  _passwordEC.text);
               
             }

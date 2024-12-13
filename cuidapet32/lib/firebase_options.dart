@@ -3,6 +3,8 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -52,8 +54,8 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC95Dqka1GsByPJ4lSLfKwzV5tnXO7wyN8',
+  static  FirebaseOptions android = FirebaseOptions(
+    apiKey:  dotenv.env['apiKey_app'] ?? '',
     appId: '1:1061574364505:android:0cee219fc958205c2d9048',
     messagingSenderId: '1061574364505',
     projectId: 'cuidapet32',

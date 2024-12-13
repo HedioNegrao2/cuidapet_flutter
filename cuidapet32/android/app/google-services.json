@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "1061574364505",
     "project_id": "cuidapet32",
-    "storage_bucket": "cuidapet32.appspot.com"
+    "storage_bucket": "cuidapet32.firebasestorage.app"
   },
   "client": [
     {
@@ -12,7 +12,20 @@
           "package_name": "br.com.hedionegrao.cuidapet32"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1061574364505-14occ8o6nds4ui7r9q718qkd5p1kc8fu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.hedionegrao.cuidapet32",
+            "certificate_hash": "fe7e41d13e7eea8922f6133144c0e9b6e9cf8402"
+          }
+        },
+        {
+          "client_id": "1061574364505-qvj0nbq4d8uonujdc2fa3qojpemed5s3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC95Dqka1GsByPJ4lSLfKwzV5tnXO7wyN8"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1061574364505-qvj0nbq4d8uonujdc2fa3qojpemed5s3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

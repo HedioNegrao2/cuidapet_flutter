@@ -14,12 +14,12 @@ Content-Type: application/json
 
 {
   "login": "meuemail@gmail.com",
-  "social_login": true ,
-  "avatar": "test",
+  "social_login": false ,
+  
   "supplier_user": false,
-  "social_key": "123456",    
-  "social_type": "FACEBOOK",
-  "password": ""
+  
+  
+  "password": "123456"
   }
 
 ### Login com facebook
@@ -60,7 +60,7 @@ Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjM1MDg2
 
 GET http://127.0.0.1:8080/user/
 Content-Type: application/json
-Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjM5NDM4NTEsImlhdCI6MTcyMzg1NzQ1MSwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MjM4NTc0NTEsInN1YiI6IjI1Iiwic3VwcGxpZXIiOm51bGx9.Xzzfl2DWgpulOou_tJSy3ULaNz7tKNgTaQFZyEiCOv8
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM3NTcyMTAsImlhdCI6MTczMzY3MDgxMCwiaXNzIjoiY3VpZGFwZXQiLCJuYmYiOjE3MzM2NzA4MTAsInN1YiI6IjQxIiwic3VwcGxpZXIiOm51bGx9.slU50wHlzSo0MkT1DYD37CUd-1ATcyqsAxPLZj_BIJ0
 
 ### Atualizar avatar
 

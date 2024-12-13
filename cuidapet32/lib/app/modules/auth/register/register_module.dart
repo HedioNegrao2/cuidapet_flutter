@@ -13,7 +13,7 @@ class RegisterModule extends Module {
   ];
 
 
-    @override
+  @override
   void binds(i) {
     i.addLazySingleton<RegisterController>(() => RegisterController(userServcie: i(), log: i()));
     
