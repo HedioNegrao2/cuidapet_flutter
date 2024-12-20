@@ -1,23 +1,19 @@
 
 import 'package:cuidapet32/app/core/helpers/constants.dart';
 import 'package:cuidapet32/app/core/local_storage/local_storage.dart';
-import 'package:cuidapet32/app/core/logger/app_logger.dart';
 import 'package:cuidapet32/app/modules/core/auth/auth_store.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 
 class AuthInterceptor extends Interceptor {
-  final LocalStorage _localStorage;
-  final AppLogger _log;
+  final LocalStorage _localStorage;  
   final AuthStore _authStore;
 
 
   AuthInterceptor({
-    required LocalStorage localStorage,
-    required AppLogger log,
+    required LocalStorage localStorage,    
     required AuthStore authStore,
-  })  : _localStorage = localStorage,
-        _log = log,
+  })  : _localStorage = localStorage,        
         _authStore = authStore;
 
   @override
@@ -46,16 +42,5 @@ class AuthInterceptor extends Interceptor {
 
     return handler.next(options);    
 
-  } 
-
-//  @override
-//  void onResponse(Response response) {
-//    return response;
-//  }
-
-//  @override
-//  void onError(DioError err) {
-//    return err;
-//  }
-  
+  }   
 }

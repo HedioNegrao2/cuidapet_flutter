@@ -1,5 +1,6 @@
 
 
+import 'package:cuidapet32/app/modules/address/address_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:cuidapet32/app/modules/core/core_mudule.dart';
 import 'package:cuidapet32/app/modules/auth/auth_module.dart';
@@ -19,6 +20,7 @@ class AppModule extends Module {
   void routes(r) {
     r.module('/auth/', module:  AuthModule());
     r.module('/home/', module: HomeModule());
+    r.module('/address', module: AddressModule());
   }
 }
 

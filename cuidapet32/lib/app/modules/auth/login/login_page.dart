@@ -1,6 +1,4 @@
 import 'package:cuidapet32/app/core/helpers/environments.dart';
-import 'package:cuidapet32/app/core/ui/widgets/loader.dart';
-import 'package:cuidapet32/app/core/ui/widgets/messages.dart';
 import 'package:cuidapet32/app/models/social_login_type.dart';
 import 'package:cuidapet32/app/modules/auth/login/widgets/login_controller.dart';
 import 'package:flutter/material.dart';

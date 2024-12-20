@@ -13,8 +13,7 @@ class SecurityMeddleware extends Middlewares {
     SecuritySkipUrl(url: '/auth/register', method: 'POST'),
     SecuritySkipUrl(url: '/auth/', method: 'POST'),
     SecuritySkipUrl(url: 'suppliers/user', method: 'GET'),
-     SecuritySkipUrl(url: 'suppliers/user', method: 'POST'),
-
+    SecuritySkipUrl(url: 'suppliers/user', method: 'POST'),
   ];
 
   SecurityMeddleware(this.log);
@@ -43,11 +42,11 @@ class SecurityMeddleware extends Middlewares {
       final claims = JwtHelper.getClaims(authorizationTonken);
 
       if (request.url.path != 'auth/refresh') {
-        claims.validate;
+        claims.validate();
       }
 
       final claimsMap = claims.toJson();
-      
+
       final userId = claimsMap['sub'];
       final supplierId = claimsMap['supplier'];
 

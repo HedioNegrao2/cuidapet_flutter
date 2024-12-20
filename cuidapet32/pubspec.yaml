@@ -49,6 +49,8 @@ dependencies:
   logger: ^2.4.0
   flutter_secure_storage: ^9.2.2
   shared_preferences: ^2.3.2
+  flutter_typeahead: ^5.2.0
+  google_place: ^0.4.7
   
   validatorless: ^1.2.3
   

@@ -3,6 +3,7 @@ import 'package:cuidapet32/app/core/helpers/environments.dart';
 import 'package:cuidapet32/app/core/local_storage/local_storage.dart';
 import 'package:cuidapet32/app/core/logger/app_logger.dart';
 import 'package:cuidapet32/app/core/rest_client/dio/interceptors/auth_interceptor.dart';
+import 'package:cuidapet32/app/core/rest_client/dio/interceptors/auth_refresh_token_interceptor.dart';
 import 'package:cuidapet32/app/core/rest_client/rest_client.dart';
 import 'package:cuidapet32/app/core/rest_client/rest_client_exception.dart';
 import 'package:cuidapet32/app/core/rest_client/rest_client_response.dart';
@@ -28,18 +29,28 @@ class DioRestClient implements RestClient {
     required LocalStorage localStorage,
     required AppLogger log,
     required AuthStore authStore,
+    required LocalSecureStorage localSecureStorage,
     BaseOptions? options,
   }) {
     _dio = Dio(options ?? _defaultOptions);
     _dio.interceptors.addAll([
-       AuthInterceptor(localStorage: localStorage, log: log, authStore: authStore),
+      AuthInterceptor(
+        localStorage: localStorage,
+        authStore: authStore,
+      ),
       LogInterceptor(
         requestBody: true,
         responseBody: true,
         requestHeader: true,
         responseHeader: true,
       ),
-     
+      AuthRefreshTokenInterceptor(
+        authStore: authStore,
+        localStorage: localStorage,
+        localSecureStorage: localSecureStorage,
+        restClient: this,
+        log: log,
+      ),  
     ]);
   }
 
@@ -129,25 +140,24 @@ class DioRestClient implements RestClient {
     }
   }
 
-@override
+  @override
   Future<RestClientResponse<T>> put<T>(String path,
       {data,
       Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
     try {
-      final response = await _dio.patch(
+      final response = await _dio.put(
         path,
         data: data,
         queryParameters: queryParameters,
         options: Options(headers: headers),
       );
 
-      return  _dioResponseConvert(response);
+      return _dioResponseConvert(response);
     } on DioException catch (e) {
       _trowRestClientException(e);
     }
   }
-
 
   @override
   Future<RestClientResponse<T>> request<T>(String path,
@@ -156,7 +166,7 @@ class DioRestClient implements RestClient {
       Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
     try {
-      final response = await _dio.patch(
+      final response = await _dio.request(
         path,
         data: data,
         queryParameters: queryParameters,

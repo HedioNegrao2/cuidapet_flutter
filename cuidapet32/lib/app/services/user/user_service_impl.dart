@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:cuidapet32/app/core/helpers/constants.dart';
 import 'package:cuidapet32/app/core/local_storage/local_storage.dart';
 import 'package:cuidapet32/app/core/logger/app_logger.dart';
-import 'package:cuidapet32/app/core/ui/exeptions/failre.dart';
-import 'package:cuidapet32/app/core/ui/exeptions/user_exists_exception.dart';
-import 'package:cuidapet32/app/core/ui/exeptions/user_not_exists_exception.dart';
+import 'package:cuidapet32/app/core/exeptions/failre.dart';
+import 'package:cuidapet32/app/core/exeptions/user_exists_exception.dart';
+import 'package:cuidapet32/app/core/exeptions/user_not_exists_exception.dart';
 import 'package:cuidapet32/app/models/social_login_type.dart';
 import 'package:cuidapet32/app/models/social_network_model.dart';
 import 'package:cuidapet32/app/repositories/social/social_repository.dart';

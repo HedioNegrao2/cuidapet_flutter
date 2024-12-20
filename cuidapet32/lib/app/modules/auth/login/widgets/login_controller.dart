@@ -1,6 +1,6 @@
 import 'package:cuidapet32/app/core/logger/app_logger.dart';
-import 'package:cuidapet32/app/core/ui/exeptions/failre.dart';
-import 'package:cuidapet32/app/core/ui/exeptions/user_not_exists_exception.dart';
+import 'package:cuidapet32/app/core/exeptions/failre.dart';
+import 'package:cuidapet32/app/core/exeptions/user_not_exists_exception.dart';
 import 'package:cuidapet32/app/core/ui/widgets/loader.dart';
 import 'package:cuidapet32/app/core/ui/widgets/messages.dart';
 import 'package:cuidapet32/app/models/social_login_type.dart';
