@@ -20,9 +20,13 @@ class SheradPreferencesLocalStorageImpl implements LocalStorage {
   }
 
   @override
-  Future<V> read<V>(String key) async {
+  Future<V?> read<V>(String key) async {
     final sharedPreferences = await _instace;
-    return sharedPreferences.get(key) as V;
+    final value = sharedPreferences.get(key);
+    if (value == null) {
+      return null;
+    }
+    return value as V;
   }
 
   @override
