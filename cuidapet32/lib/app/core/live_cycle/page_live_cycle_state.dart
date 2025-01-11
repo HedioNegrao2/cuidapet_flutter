@@ -17,4 +17,10 @@ extends State<P> {
     
   }
 
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
 }

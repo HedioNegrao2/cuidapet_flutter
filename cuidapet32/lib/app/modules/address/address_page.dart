@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 import 'package:cuidapet32/app/core/mixins/location_mixins.dart';
 import 'package:cuidapet32/app/modules/address/widgets/address_controller.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';

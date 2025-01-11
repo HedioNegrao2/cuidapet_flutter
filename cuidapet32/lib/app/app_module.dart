@@ -1,6 +1,7 @@
 
 
 import 'package:cuidapet32/app/modules/address/address_module.dart';
+import 'package:cuidapet32/app/modules/supplier/supplier_mudule.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:cuidapet32/app/modules/core/core_mudule.dart';
 import 'package:cuidapet32/app/modules/auth/auth_module.dart';
@@ -13,7 +14,7 @@ class AppModule extends Module {
 
   @override
   List<Module> get imports => [
-    CoreMudule(),
+    CoreMudule(),    
   ];
 
   @override
@@ -21,6 +22,7 @@ class AppModule extends Module {
     r.module('/auth/', module:  AuthModule());
     r.module('/home/', module: HomeModule());
     r.module('/address', module: AddressModule());
+     r.module('/supolier', module: SupplierMudule());
   }
 }
 
