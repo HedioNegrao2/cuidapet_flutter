@@ -6,7 +6,6 @@ import 'package:cuidapet32/app/models/supplier_category_model.dart';
 import 'package:cuidapet32/app/models/supplier_nearby_me_model.dart';
 import 'package:cuidapet32/app/services/address/address_service.dart';
 import 'package:cuidapet32/app/services/supplier/supplier_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 part 'home_controller.g.dart';
@@ -50,7 +49,7 @@ abstract class HomeControllerBase with Store, ControllerLiveCycle {
   Future<void> onReady() async {
     try {
       Loader.show();
-    // await FirebaseAuth.instance.signOut();
+  //  await FirebaseAuth.instance.signOut();
       await _getAddressSelected();
       await _getCategories();
     } finally {

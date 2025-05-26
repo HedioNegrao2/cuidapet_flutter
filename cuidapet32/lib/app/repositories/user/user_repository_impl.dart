@@ -14,6 +14,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 class UserRepositoryImpl implements UserRepository {
   final RestClient _restClient;
   final AppLogger _log;
+  
 
   UserRepositoryImpl({
     required RestClient restClient,

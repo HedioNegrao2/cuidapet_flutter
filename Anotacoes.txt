@@ -1,3 +1,6 @@
 flutter create --project-name gradiente_text --platforms android --org br.com.hedionegrao ./cuidapet-mobile
 
 startar docker: sudo service docker start
+
+
+https://www.figma.com/design/GAIBEO4NruOhEUSP2GvTcO/Cuidapet

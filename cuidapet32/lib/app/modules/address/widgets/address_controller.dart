@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cuidapet32/app/core/live_cycle/controller_live_cycle.dart';
 import 'package:cuidapet32/app/core/ui/widgets/loader.dart';
 import 'package:cuidapet32/app/core/ui/widgets/messages.dart';
