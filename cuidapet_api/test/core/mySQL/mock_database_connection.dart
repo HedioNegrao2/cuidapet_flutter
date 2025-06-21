@@ -20,7 +20,7 @@ class MockDatabaseConnection extends Mock implements IDatabaseConnection {
         .thenAnswer((_) async => mockResults);
   }
 
-  void mockQueryException([ MockMysqlException? mockException, List<Object>? params]) {
+  void mockQueryException({ MockMysqlException? mockException, List<Object>? params}) {
     var exception = mockException;  
 
     if (exception == null) {

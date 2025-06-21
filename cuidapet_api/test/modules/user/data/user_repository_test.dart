@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:cuidapet_api/application/exceptions/database_exceptions.dart';
 import 'package:cuidapet_api/application/exceptions/user_exists_exception.dart';
@@ -8,7 +9,6 @@ import 'package:cuidapet_api/application/logger/i_logger.dart';
 import 'package:cuidapet_api/entities/user.dart';
 import 'package:cuidapet_api/modules/user/data/user_repository.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:mysql1/mysql1.dart';
 import 'package:test/test.dart';
 import '../../../core/fixture/fixture_reader.dart';
 import '../../../core/log/mock_logger.dart';
@@ -147,7 +147,7 @@ void main() {
     //Arrange
     final exception = MockMysqlException();
     when(() => exception.message).thenReturn('usuario.email_UNIQUE');
-    database.mockQueryException(exception);
+    database.mockQueryException(mockException:  exception);
 
 
     //Act
@@ -160,4 +160,106 @@ void main() {
    
  });
  
+
+group('Group test LoginWithEmailPassword', () {
+  test('Should login with email and password', () async {
+    //Arrange
+    final userFixtureDB = FixtureReader.getJsonData('modules/user/data/fixture/login_with_email_password_success_fixture.json');
+    final mysqlResults = MockResults(userFixtureDB, [
+       'ios_token',
+      'android_token',
+      'refresh_token',
+      'img_avatar',
+      'social_id'
+      ]);
+    final email =  'joao@gmail.com';
+    final password = '123123';
+    database.mockQuery(mysqlResults,[email, CriptyHelper.generateSha256(password) ]);
+    final userMap = jsonDecode(userFixtureDB);
+    final userExpected = User(
+      id: userMap['id'] as int,
+      email: userMap['email'],
+      registerType: userMap['tipo_cadastro'],
+      supplierId: userMap['fornecedor_id'],
+      socialKey: userMap['social_id'] ,
+      iosToken: userMap['ios_token'] ,
+      androidToken: userMap['android_token'] ,
+      imageAvatar: userMap['img_avatar'] ,
+      refreshToken: userMap['refresh_token'] ,
+    );
+    
+    
+    //Act
+    final user = await userRepository.loginWithEmailPassword(email, password, false);  
+    
+    //Assert
+    expect(user, userExpected); 
+   
+
+  });
+
+  test('Should login with email and password and return Exception DatabaseException', () async {
+    //Arrange   
+
+    final email =  'joao@gmail.com';
+    final password = '123123';
+    database.mockQueryException(params: [email, CriptyHelper.generateSha256(password) ]);
+    
+    
+    //Act
+    final call =  userRepository.loginWithEmailPassword;  
+    
+    //Assert
+    expect(() => call(email, password, false), throwsA(isA<DatabaseException>())); 
+   
+    await Future.delayed(const Duration(milliseconds: 200));
+    database.veryfyConnectionCloser();
+  });
+
+  
+
+});
+
+group('Group test loginByEmailSocialKey', () {
+  test('Should login with email and  socialkey with success', () async {
+    //Arrange
+    final userFixtureDB = FixtureReader.getJsonData('modules/user/data/fixture/login_with_email_social_key_success_fixture.json');
+    final mysqlResults = MockResults(userFixtureDB, [
+      'ios_token',
+      'android_token',
+      'refresh_token',
+      'img_avatar',
+      'social_id'
+     
+    ]);
+    final email =  'teste@gmail.com';
+    final socialKey = '123';
+    final paramas = [email];
+    final socialType = 'Facebook';
+
+    database.mockQuery(mysqlResults, paramas);
+    final userMap = jsonDecode(userFixtureDB);
+    final userExpected = User(
+      id: userMap['id'] as int,
+      email: userMap['email'],
+      registerType: userMap['tipo_cadastro'],     
+      iosToken: userMap['ios_token'] ,
+      androidToken: userMap['android_token'] ,
+      refreshToken: userMap['refresh_token'] ,
+      imageAvatar: userMap['img_avatar'] ,
+      supplierId: userMap['fornecedor_id'] ,   
+      socialKey: userMap['social_id'] ,        
+      
+    );
+    
+    //Act
+      final user = await userRepository.loginByEmailSocialKey(email, socialKey, socialType);
+      
+    //Assert
+    expect(user, userExpected);
+    database.veryfyConnectionCloser();
+    
+  });
+});
+
 }

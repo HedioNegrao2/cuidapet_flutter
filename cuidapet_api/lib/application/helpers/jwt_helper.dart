@@ -26,11 +26,13 @@ class JwtHelper {
   }
 
   static String refreshToken(String accessToken) {
+    final expyre = int.parse( env['refresh_token_expire_days']!);        
+    final notBefore = int.parse(env['refresh_token_not_boefore_hours']!);
     final claimsSet = JwtClaim(
       issuer: accessToken,
       subject: 'refreshToken',
-      expiry: DateTime.now().add(const Duration(days: 20)),
-      notBefore: DateTime.now().add(Duration(hours: 12)),
+      expiry: DateTime.now().add( Duration(days: expyre)),
+      notBefore: DateTime.now().add(Duration(hours:notBefore)),
       issuedAt: DateTime.now(),
       otherClaims: <String, dynamic>{},
       maxAge: const Duration(days: 1),
