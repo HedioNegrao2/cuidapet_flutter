@@ -4,8 +4,7 @@ import 'package:cuidapet_api/application/logger/i_logger.dart';
 import 'package:cuidapet_api/application/middlewares/middlewares.dart';
 import 'package:cuidapet_api/application/middlewares/security/security_skip_url.dart';
 import 'package:jaguar_jwt/jaguar_jwt.dart';
-import 'package:shelf/src/request.dart';
-import 'package:shelf/src/response.dart';
+import 'package:shelf/shelf.dart';
 
 class SecurityMeddleware extends Middlewares {
   final ILogger log;

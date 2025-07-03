@@ -1,4 +1,3 @@
-import 'package:cuidapet_api/application/database/database_connection.dart';
 import 'package:cuidapet_api/application/database/i_database_connection.dart';
 import 'package:cuidapet_api/application/exceptions/database_exceptions.dart';
 import 'package:cuidapet_api/application/logger/i_logger.dart';

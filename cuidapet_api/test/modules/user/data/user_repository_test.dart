@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
-
 import 'package:cuidapet_api/application/exceptions/database_exceptions.dart';
 import 'package:cuidapet_api/application/exceptions/user_exists_exception.dart';
 import 'package:cuidapet_api/application/exceptions/user_notfound_exception.dart';
