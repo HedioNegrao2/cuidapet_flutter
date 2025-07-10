@@ -1,4 +1,5 @@
 # Cuidapet 🐾
+Projeto baseado no curso  Academia do Flutter
 
 Um aplicativo Flutter para conectar donos de pets com prestadores de serviços especializados em cuidados animais, com uma API REST robusta para gerenciar todas as operações.
 
@@ -17,12 +18,12 @@ O aplicativo mobile, desenvolvido com Flutter, oferece uma experiência de usuá
 
 ### ✨ Funcionalidades do App
 
-- 🐕 Cadastro e gerenciamento de pets
+- 🐕 Cadastro e gerenciamento de serviços
 - 🏥 Busca por serviços veterinários e pet shops
-- 📅 Agendamento de consultas e serviços
+- 📅 Agendamento de  serviços
 - 📍 Localização de estabelecimentos próximos
 - 👤 Perfil de usuário e histórico de serviços
-- 💬 Sistema de avaliações e comentários
+-
 
 ### 🛠️ Tecnologias Utilizadas no App
 
@@ -31,11 +32,12 @@ O aplicativo mobile, desenvolvido com Flutter, oferece uma experiência de usuá
 - **Firebase** - Backend e autenticação
 - **Google Maps** - Serviços de localização
 
+
 ### 🚀 Executando o Aplicativo
 
 1. **Clone o repositório:**
    ```bash
-   git clone https://github.com/seu-usuario/cuidapet.git
+   git clone https://github.com/HedioNegrao2/cuidapet_flutter.git
    ```
 
 2. **Navegue até o diretório do aplicativo:**
@@ -69,6 +71,7 @@ A API do Cuidapet, construída com Dart e o framework Shelf, é o cérebro por t
 - 🗺️ **Geolocalização** - Busca de fornecedores por localização
 - 📱 **Notificações Push** - Gerenciamento de tokens de dispositivos
 - 🏷️ **Categorias** - Sistema de categorização de serviços
+
 
 ### 🛠️ Tecnologias Utilizadas na API
 
